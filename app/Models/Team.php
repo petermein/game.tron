@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Repositories\ChannelRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Team extends Model
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +24,30 @@ class Team extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tail()
+    {
+        return $this->hasOne(TeamTail::class, 'team_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores()
+    {
+        return $this->hasMany(TeamScore::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentScore()
+    {
+        return $this->scores()->sum('');
     }
 
     /**
