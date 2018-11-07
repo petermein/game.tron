@@ -6,9 +6,11 @@ use App\Repositories\ChannelRepository;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use Notifiable;
     use SoftDeletes;
 
@@ -41,12 +43,19 @@ class User extends Authenticatable
         'last_logged_in',
     ];
 
+    protected $gameClientId;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function gameClients()
+    {
+        return $this->hasMany(GameClient::class);
     }
 
     /**
@@ -66,5 +75,29 @@ class User extends Authenticatable
     public function receivesBroadcastNotificationsOn()
     {
         return app(ChannelRepository::class)->userNotificationChannelName($this->id);
+    }
+
+    /**
+     * @param $id
+     */
+    public function setCurrentGameClientId($id)
+    {
+        $this->gameClientId = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCurrentGameClientId()
+    {
+        return $this->gameClientId;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     */
+    public function currentGameClient()
+    {
+        return $this->gameClients()->find($this->gameClientId);
     }
 }

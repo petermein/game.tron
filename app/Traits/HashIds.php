@@ -14,6 +14,12 @@ trait HashIds
 
     public function decode($value)
     {
-        return app(HashidsManager::class)->decode($value);
+        $decoded = app(HashidsManager::class)->decode($value);
+
+        if (is_array($decoded)) {
+            return $decoded[0];
+        }
+
+        return $decoded;
     }
 }
