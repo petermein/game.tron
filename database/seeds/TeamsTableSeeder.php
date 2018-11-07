@@ -13,6 +13,9 @@ class TeamsTableSeeder extends Seeder
     {
         \DB::table('teams')->insert([
             'name' => 'Team 1',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now()
+
         ]);
     }
 }

@@ -16,6 +16,8 @@ class GameClientTableSeeder extends Seeder
             'version' => '0.1',
             'user_id' => 1,
             'device_token' => 'abc123',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
         ]);
     }
 }

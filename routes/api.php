@@ -16,4 +16,6 @@ Route::middleware(['auth:api', 'client'])->group(function () {
     Route::get('test', 'TestController@test');
     Route::post('test', 'TestController@test');
 
+    Route::post('location', 'TeamLocationController@store');
+
 });

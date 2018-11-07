@@ -19,7 +19,7 @@ class CreateTeamTailsTable extends Migration
 
             $table->multiLineString('linestring');
 
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->primary('team_id');

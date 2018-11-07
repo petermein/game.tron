@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\TeamLocationListener;
 use App\Listeners\UserListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
 
     protected $subscribe = [
         UserListener::class,
+        TeamLocationListener::class,
     ];
 
     /**

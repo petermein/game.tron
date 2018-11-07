@@ -51,9 +51,13 @@ class ValidateClient
             if (empty($id = $this->decode($token))) {
                 throw new TronException('Invalid client header');
             }
-        }
 
-        $user->setCurrentGameClientId($id);
+            $user->setCurrentGameClientId($id);
+            $user->currentGameClient()->touchLastContact();
+            $user->team->touchLastContact();
+        } else {
+            throw new TronException('No logged in user');
+        }
 
         return $next($request);
     }

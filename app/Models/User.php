@@ -94,9 +94,9 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return GameClient
      */
-    public function currentGameClient()
+    public function currentGameClient() : GameClient
     {
         return $this->gameClients()->find($this->gameClientId);
     }

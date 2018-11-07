@@ -19,6 +19,11 @@ class Team extends Model
      */
     protected $fillable = [
         'name',
+        'last_contact',
+    ];
+
+    protected $dates = [
+        'last_contact',
     ];
 
     public function users()
@@ -68,5 +73,15 @@ class Team extends Model
     public function routeNotificationForFcm()
     {
         return ['123'];
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function touchLastContact()
+    {
+        $this->last_contact = $this->freshTimestamp();
+        return $this->save();
     }
 }
